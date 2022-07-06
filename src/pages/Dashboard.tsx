@@ -1,7 +1,13 @@
+import styled from 'styled-components'
+
+import { UserInfo } from '../components'
+
 export const Dashboard = (): JSX.Element => {
   return (
-    <main>
-      <h2>Dashboard Page</h2>
-    </main>
+    <Wrapper>
+      <UserInfo />
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div``

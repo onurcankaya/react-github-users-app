@@ -4,8 +4,8 @@ import styled from 'styled-components'
 export const Error = (): JSX.Element => {
   return (
     <Wrapper>
-      <h1>404</h1>
-      <h3>Page Not Found</h3>
+      <Header>404</Header>
+      <Subheader>Page Not Found</Subheader>
       <Link to='/' className='btn'>
         Go back
       </Link>
@@ -20,12 +20,12 @@ const Wrapper = styled.section`
   align-items: center;
   justify-content: center;
   text-align: center;
-  h1 {
-    font-size: 10rem;
-    margin-bottom: 2rem;
-  }
-  h3 {
-    font-size: 3rem;
-    margin-bottom: 4rem;
-  }
+`
+const Header = styled.h1`
+  font-size: 10rem;
+  margin-bottom: 2rem;
+`
+const Subheader = styled.h3`
+  font-size: 3rem;
+  margin-bottom: 4rem;
 `
