@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { GithubContext } from '../context/context'
 
-export const Info = () => {
+export const Info = (): JSX.Element => {
   const { githubUser } = useContext(GithubContext)
   const { followers, following, public_gists, public_repos } = githubUser
 

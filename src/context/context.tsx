@@ -16,7 +16,11 @@ const GithubContext = createContext<{
   followers: mockFollowers,
 })
 
-const GithubProvider = ({ children }: { children: React.ReactNode }) => {
+const GithubProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}): JSX.Element => {
   const [githubUser, setGithubUser] = useState(mockUser)
   const [repos, setRepos] = useState(mockRepos)
   const [followers, setFollowers] = useState(mockFollowers)

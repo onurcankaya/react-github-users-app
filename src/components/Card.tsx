@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { GithubContext } from '../context/context'
 
-export const Card = () => {
+export const Card = (): JSX.Element => {
   const { githubUser } = useContext(GithubContext)
   const {
     avatar_url,
@@ -25,7 +25,7 @@ export const Card = () => {
           <Name>{name}</Name>
           <Twitter>{twitter_username}</Twitter>
         </div>
-        <Follow href={html_url} target='_blank'>
+        <Follow href={html_url} target='_blank' rel='noreferrer'>
           Follow
         </Follow>
       </Header>
@@ -37,7 +37,7 @@ export const Card = () => {
         <p>
           <MdLocationOn /> {location || 'internet'}
         </p>
-        <a href={`https://${blog}`}>
+        <a href={`https://${blog}`} target='_blank' rel='noreferrer'>
           <MdLink />
           {blog}
         </a>
@@ -99,6 +99,7 @@ const Details = styled.div`
     }
   }
   a {
+    color: var(--color-grey-3);
     text-decoration: underline;
   }
 `

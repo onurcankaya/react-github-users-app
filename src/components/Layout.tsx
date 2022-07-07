@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = ({
+  children,
+}: {
+  children: React.ReactNode
+}): JSX.Element => {
   return <Wrapper>{children}</Wrapper>
 }
 

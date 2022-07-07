@@ -1,15 +1,21 @@
 import styled from 'styled-components'
 
-import { Card } from '../components'
+import { Card } from './Card'
+import { Followers } from './Followers'
 
-export const User = () => {
+export const User = (): JSX.Element => {
   return (
     <Wrapper>
       <Card />
+      <Followers />
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  padding-bottom: 2rem;
+  display: grid;
+  gap: 2rem;
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `
