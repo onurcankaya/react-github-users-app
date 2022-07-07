@@ -1,5 +1,5 @@
 export interface GithubUser {
-  login: string
+  login: string | null
   id: number
   node_id: string
   avatar_url: string
@@ -20,7 +20,7 @@ export interface GithubUser {
   name: string
   company: string
   blog: string
-  location: string
+  location: string | null
   email: string | null
   hireable: string | null
   bio: string | null

@@ -1,14 +1,17 @@
 import styled from 'styled-components'
 
 import githubImg from '../assets/images/github.svg'
+import { Layout } from '../components'
 
 export const Login = (): JSX.Element => {
   return (
-    <Wrapper>
-      <Image src={githubImg} alt='github-login' />
-      <Title>Github Users</Title>
-      <button className='btn'>Login</button>
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <Image src={githubImg} alt='github-login' />
+        <Title>Github Users</Title>
+        <button className='btn'>Login</button>
+      </Wrapper>
+    </Layout>
   )
 }
 

@@ -1,13 +1,10 @@
-import styled from 'styled-components'
-
-import { UserInfo } from '../components'
+import { Info, Layout, User } from '../components'
 
 export const Dashboard = (): JSX.Element => {
   return (
-    <Wrapper>
-      <UserInfo />
-    </Wrapper>
+    <Layout>
+      <Info />
+      <User />
+    </Layout>
   )
 }
-
-const Wrapper = styled.div``

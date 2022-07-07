@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+import { Layout } from '../components'
+
 export const Error = (): JSX.Element => {
   return (
-    <Wrapper>
-      <Header>404</Header>
-      <Subheader>Page Not Found</Subheader>
-      <Link to='/' className='btn'>
-        Go back
-      </Link>
-    </Wrapper>
+    <Layout>
+      <Wrapper>
+        <Header>404</Header>
+        <Subheader>Page Not Found</Subheader>
+        <Link to='/' className='btn'>
+          Go back
+        </Link>
+      </Wrapper>
+    </Layout>
   )
 }
 

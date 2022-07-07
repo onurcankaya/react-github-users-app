@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { GithubContext } from '../context/context'
 
-export const UserInfo = () => {
+export const Info = () => {
   const { githubUser } = useContext(GithubContext)
   const { followers, following, public_gists, public_repos } = githubUser
 
@@ -42,8 +42,8 @@ export const UserInfo = () => {
         <Item key={item.id}>
           <Icon>{item.icon}</Icon>
           <div>
-            <h4>{item.label}</h4>
-            <p>{item.value}</p>
+            <Value>{item.value}</Value>
+            <Label>{item.label}</Label>
           </div>
         </Item>
       ))}
@@ -53,10 +53,11 @@ export const UserInfo = () => {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minimax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem 2rem;
+  padding-bottom: 2rem;
   @media (min-width: 640px) {
-    grid-template-columns: repeat(auto-fill, minimax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   }
 `
 const Item = styled.div`
@@ -77,4 +78,12 @@ const Icon = styled.span`
   font-size: 1.5rem;
   background-color: var(--color-grey-8);
   color: var(--color-grey-3);
+`
+const Value = styled.h3`
+  margin-bottom: 0;
+  letter-spacing: 0;
+`
+const Label = styled.p`
+  margin-bottom: 0;
+  text-transform: capitalize;
 `

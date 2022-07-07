@@ -6,8 +6,6 @@ import mockFollowers from './mockData/mockFollowers'
 import mockRepos from './mockData/mockRepos'
 import mockUser from './mockData/mockUser'
 
-// const rootUrl = 'https://api.github.com'
-
 const GithubContext = createContext<{
   githubUser: GithubUser
   repos: Repo[]
@@ -22,6 +20,10 @@ const GithubProvider = ({ children }: { children: React.ReactNode }) => {
   const [githubUser, setGithubUser] = useState(mockUser)
   const [repos, setRepos] = useState(mockRepos)
   const [followers, setFollowers] = useState(mockFollowers)
+
+  console.log('setGithubUser', setGithubUser)
+  console.log('setRepos', setRepos)
+  console.log('setFollowers', setFollowers)
 
   return (
     <GithubContext.Provider value={{ githubUser, repos, followers }}>
