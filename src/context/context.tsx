@@ -6,7 +6,7 @@ import mockFollowers from './mockData/mockFollowers'
 import mockRepos from './mockData/mockRepos'
 import mockUser from './mockData/mockUser'
 
-const GithubContext = createContext<{
+export const GithubContext = createContext<{
   githubUser: GithubUser
   repos: Repo[]
   followers: Follower[]
@@ -16,7 +16,7 @@ const GithubContext = createContext<{
   followers: mockFollowers,
 })
 
-const GithubProvider = ({
+export const GithubProvider = ({
   children,
 }: {
   children: React.ReactNode
@@ -35,5 +35,3 @@ const GithubProvider = ({
     </GithubContext.Provider>
   )
 }
-
-export { GithubProvider, GithubContext }

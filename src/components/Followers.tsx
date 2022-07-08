@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { GithubContext } from '../context/context'
+import { GithubContext } from '../context'
 
 export const Followers = (): JSX.Element => {
   const { followers } = React.useContext(GithubContext)
@@ -69,6 +69,7 @@ const Avatar = styled.img`
   border-radius: 50%;
 `
 const Name = styled.h4`
+  letter-spacing: 0;
   margin-bottom: 0.25rem;
 `
 const GithubUrl = styled.a`

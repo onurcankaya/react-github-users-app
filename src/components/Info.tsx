@@ -3,7 +3,7 @@ import { FiUserPlus, FiUsers } from 'react-icons/fi'
 import { GoGist, GoRepo } from 'react-icons/go'
 import styled from 'styled-components'
 
-import { GithubContext } from '../context/context'
+import { GithubContext } from '../context'
 
 export const Info = (): JSX.Element => {
   const { githubUser } = useContext(GithubContext)

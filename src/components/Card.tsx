@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { MdBusiness, MdLink, MdLocationOn } from 'react-icons/md'
 import styled from 'styled-components'
 
-import { GithubContext } from '../context/context'
+import { GithubContext } from '../context'
 
 export const Card = (): JSX.Element => {
   const { githubUser } = useContext(GithubContext)

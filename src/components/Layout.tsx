@@ -10,7 +10,7 @@ export const Layout = ({
 }
 
 const Wrapper = styled.div`
-  padding: 1rem 0;
+  padding: 2rem 0;
   width: 90vw;
   margin: 0 auto;
   max-width: 1170px;
