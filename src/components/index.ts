@@ -1,3 +1,4 @@
+export { Chart } from './Chart'
 export { Info } from './Info'
 export { Layout } from './Layout'
 export { Repos } from './Repos'

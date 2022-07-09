@@ -3,29 +3,30 @@ import Charts from 'fusioncharts/fusioncharts.charts'
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion'
 import ReactFusionCharts from 'react-fusioncharts'
 
-import { ChartItem } from '../../types/chart'
+import { ChartItem } from '../types/chart'
 
 ReactFusionCharts.fcRoot(FusionCharts, Charts, FusionTheme)
 
+type ChartType = 'pie2d' | 'column2d'
+
 type Props = {
+  type: ChartType
   title: string
   data: ChartItem[]
+  customSettings: Record<string, string>
 }
 
-export const PieChart = ({ title, data }: Props) => {
+export const Chart = ({ type, title, data, customSettings }: Props) => {
   const chartConfigs = {
-    type: 'pie2d',
+    type,
     width: '100%',
     height: 400,
     dataFormat: 'JSON',
     dataSource: {
       chart: {
         caption: title,
-        showlegend: '1',
-        showpercentvalues: '1',
-        legendposition: 'bottom',
-        usedataplotcolorforlabels: '1',
         theme: 'fusion',
+        ...customSettings,
       },
       data,
     },
