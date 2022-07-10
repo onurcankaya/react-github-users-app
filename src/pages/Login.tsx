@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import githubImg from '../assets/images/github.svg'
-import { Layout } from '../components'
+import { Button, Layout } from '../components'
 
 export const Login = (): JSX.Element => {
   return (
@@ -9,7 +9,7 @@ export const Login = (): JSX.Element => {
       <Wrapper>
         <Image src={githubImg} alt='github-login' />
         <Title>Github Users</Title>
-        <button className='btn'>Login</button>
+        <Button>Login</Button>
       </Wrapper>
     </Layout>
   )
@@ -29,5 +29,5 @@ const Image = styled.img`
   margin-bottom: 2rem;
 `
 const Title = styled.h2`
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 `

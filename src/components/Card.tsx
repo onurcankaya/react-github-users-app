@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 import { GithubContext } from '../context'
 
+import { LinkButton } from './'
+
 export const Card = (): JSX.Element => {
   const { githubUser } = useContext(GithubContext)
   const {
@@ -25,9 +27,9 @@ export const Card = (): JSX.Element => {
           <Name>{name}</Name>
           <Twitter>{twitter_username}</Twitter>
         </div>
-        <Follow href={html_url} target='_blank' rel='noreferrer'>
+        <LinkButton href={html_url} target='_blank' rel='noreferrer'>
           Follow
-        </Follow>
+        </LinkButton>
       </Header>
       <Bio>{bio || 'No bio'}</Bio>
       <Details>
@@ -68,20 +70,6 @@ const Name = styled.h4`
 `
 const Twitter = styled.p`
   margin-bottom: 0.25rem;
-`
-const Follow = styled.a`
-  color: var(--color-grey-5);
-  border: 1px solid var(--color-grey-5);
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  text-transform: capitalize;
-  letter-spacing: var(--spacing);
-  transition: var(--transition);
-  cursor: pointer;
-  &:hover {
-    background: var(--color-grey-5);
-    color: var(--color-white);
-  }
 `
 const Bio = styled.p`
   color: var(--color-grey-3);

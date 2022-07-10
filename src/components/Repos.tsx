@@ -37,7 +37,7 @@ export const Repos = (): JSX.Element => {
     return total
   }, {})
 
-  const starredRepos = repos.reduce((total: ChartData, item) => {
+  const mostPopularRepos = repos.reduce((total: ChartData, item) => {
     const { name, stargazers_count } = item
     total[name] = {
       label: name,
@@ -62,7 +62,7 @@ export const Repos = (): JSX.Element => {
       <Chart
         type='column2d'
         title='Most popular repos'
-        data={formatChartData(starredRepos)}
+        data={formatChartData(mostPopularRepos)}
         customSettings={{
           yaxisname: 'Stars',
           aligncaptionwithcanvas: '0',
