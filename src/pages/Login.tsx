@@ -1,15 +1,18 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import styled from 'styled-components'
 
 import githubImg from '../assets/images/github.svg'
 import { Button, Layout } from '../components'
 
 export const Login = (): JSX.Element => {
+  const { loginWithRedirect } = useAuth0()
+
   return (
     <Layout>
       <Wrapper>
         <Image src={githubImg} alt='github-login' />
         <Title>Github Users</Title>
-        <Button>Login</Button>
+        <Button onClick={() => loginWithRedirect()}>Login</Button>
       </Wrapper>
     </Layout>
   )
