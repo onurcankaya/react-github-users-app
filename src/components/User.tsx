@@ -15,7 +15,7 @@ export const User = (): JSX.Element => {
 const Wrapper = styled.div`
   display: grid;
   gap: 2rem;
-  padding-bottom: 2rem;
+  padding: 2rem 0;
   @media (min-width: 992px) {
     grid-template-columns: 1fr 1fr;
   }

@@ -73,21 +73,29 @@ export const GithubProvider = ({
       if (user === '') {
         setError('Please type a username to search')
       } else {
-        const BASE_URL = `${ROOT_URL}/users/${user}`
-
-        const userResponse = await fetch(BASE_URL)
+        const userResponse = await fetch(`${ROOT_URL}/users/${user}`)
 
         if (userResponse.status >= 200 && userResponse.status < 300) {
           const userData = await userResponse.json()
           setGithubUser(userData)
+          const { login, followers_url } = userData
 
-          const reposResponse = await fetch(`${BASE_URL}/repos?per_page=100`)
-          const reposData = await reposResponse.json()
-          setRepos(reposData)
+          const response = await Promise.allSettled([
+            fetch(`${ROOT_URL}/users/${login}/repos?per_page=100`),
+            fetch(`${followers_url}?per_page=100`),
+          ])
 
-          const followersResponse = await fetch(`${BASE_URL}/followers`)
-          const followersData = await followersResponse.json()
-          setFollowers(followersData)
+          const [repos, followers] = response
+          const isFulfilled = 'fulfilled'
+
+          if (repos.status === isFulfilled) {
+            const reposData = await repos.value.json()
+            setRepos(reposData)
+          }
+          if (followers.status === isFulfilled) {
+            const followersData = await followers.value.json()
+            setFollowers(followersData)
+          }
           setIsLoading(false)
         } else {
           setError('There is no user with that username')
