@@ -12,7 +12,7 @@ export const Login = (): JSX.Element => {
       <Wrapper>
         <Image src={githubImg} alt='github-login' />
         <Title>Github Users</Title>
-        <Button onClick={() => loginWithRedirect()}>Login</Button>
+        <Button onClick={() => loginWithRedirect()}>Login / Sign Up</Button>
       </Wrapper>
     </Layout>
   )

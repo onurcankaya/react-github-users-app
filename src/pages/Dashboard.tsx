@@ -1,6 +1,14 @@
 import { useContext } from 'react'
 
-import { Info, Layout, Loader, Repos, Search, User } from '../components'
+import {
+  Info,
+  Layout,
+  Loader,
+  Navbar,
+  Repos,
+  Search,
+  User,
+} from '../components'
 import { GithubContext } from '../context'
 
 export const Dashboard = (): JSX.Element => {
@@ -10,6 +18,7 @@ export const Dashboard = (): JSX.Element => {
 
   return (
     <Layout>
+      <Navbar />
       <Search />
       <Info />
       <User />

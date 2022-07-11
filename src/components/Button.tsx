@@ -9,7 +9,7 @@ const sharedStyles = css`
   color: var(--color-white);
   transition: var(--transition);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.85rem;
   &:hover {
     background: var(--color-grey-6);
   }
