@@ -13,9 +13,10 @@ type GithubContextType = {
   githubUser: GithubUser
   repos: Repo[]
   followers: Follower[]
-  searchGithubUser: (query: string) => void
+  searchGithubUser: (user: string) => void
   remainingRequests: number
   error: string
+  isLoading: boolean
 }
 
 const initialContextValue: GithubContextType = {
@@ -25,6 +26,7 @@ const initialContextValue: GithubContextType = {
   searchGithubUser: noop,
   remainingRequests: 0,
   error: '',
+  isLoading: false,
 }
 
 export const GithubContext =
@@ -40,9 +42,11 @@ export const GithubProvider = ({
   const [followers, setFollowers] = useState(mockFollowers)
   const [remainingRequests, setRemainingRequests] = useState(0)
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
-  const fetchRequests = async (): Promise<void> => {
+  const checkRequests = async (): Promise<void> => {
     setError('')
+    setIsLoading(true)
     const response = await fetch(`${ROOT_URL}/rate_limit`)
     const data = await response.json()
     const { remaining } = data.rate
@@ -54,18 +58,22 @@ export const GithubProvider = ({
 
   useEffect(() => {
     try {
-      fetchRequests()
+      checkRequests()
+      setIsLoading(false)
     } catch (error) {
       throw new Error()
+      setIsLoading(false)
     }
   }, [])
 
-  const searchGithubUser = async (query: string) => {
+  const searchGithubUser = async (user: string): Promise<void> => {
+    setError('')
+    setIsLoading(true)
     try {
-      if (query === '') {
+      if (user === '') {
         setError('Please type a username to search')
       } else {
-        const BASE_URL = `${ROOT_URL}/users/${query}`
+        const BASE_URL = `${ROOT_URL}/users/${user}`
 
         const userResponse = await fetch(BASE_URL)
 
@@ -80,6 +88,10 @@ export const GithubProvider = ({
           const followersResponse = await fetch(`${BASE_URL}/followers`)
           const followersData = await followersResponse.json()
           setFollowers(followersData)
+          setIsLoading(false)
+        } else {
+          setError('There is no user with that username')
+          setIsLoading(false)
         }
       }
     } catch (error) {
@@ -96,6 +108,7 @@ export const GithubProvider = ({
         searchGithubUser,
         remainingRequests,
         error,
+        isLoading,
       }}
     >
       {children}
