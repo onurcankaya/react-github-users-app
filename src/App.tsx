@@ -1,6 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
-import { AuthWrapper, Dashboard, Error, Login, PrivateRoute } from './pages'
+import { AuthWrapper, Dashboard, Login, NotFound, PrivateRoute } from './pages'
 
 export function App(): JSX.Element {
   return (
@@ -16,7 +16,7 @@ export function App(): JSX.Element {
             }
           />
           <Route path='/login' element={<Login />} />
-          <Route path='*' element={<Error />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>
     </AuthWrapper>

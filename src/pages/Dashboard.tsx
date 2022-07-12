@@ -14,7 +14,13 @@ import { GithubContext } from '../context'
 export const Dashboard = (): JSX.Element => {
   const { isLoading } = useContext(GithubContext)
 
-  if (isLoading) return <Loader />
+  if (isLoading)
+    return (
+      <Layout>
+        <Navbar />
+        <Loader />
+      </Layout>
+    )
 
   return (
     <Layout>

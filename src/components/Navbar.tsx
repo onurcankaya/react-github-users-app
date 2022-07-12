@@ -4,11 +4,7 @@ import styled from 'styled-components'
 import { Button } from './'
 
 export const Navbar = () => {
-  const { isAuthenticated, isLoading, logout, user } = useAuth0()
-
-  console.log('isAuthenticated', isAuthenticated)
-  console.log('isLoading', isLoading)
-  console.log('user', user)
+  const { isAuthenticated, logout, user } = useAuth0()
 
   const isUser = isAuthenticated && user
 
@@ -36,7 +32,7 @@ const Wrapper = styled.nav`
   top: 0;
   right: 0;
   left: 0;
-  padding: 1rem 0;
+  padding: 1rem;
   background: var(--color-white);
   border-radius: var(--radius);
 `

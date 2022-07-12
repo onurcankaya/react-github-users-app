@@ -1,5 +1,11 @@
 import noop from 'lodash/noop'
-import { createContext, useEffect, useState } from 'react'
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react'
 
 import { Follower, GithubUser, Repo } from '../types'
 
@@ -16,6 +22,7 @@ type GithubContextType = {
   searchGithubUser: (user: string) => void
   remainingRequests: number
   error: string
+  setError: Dispatch<SetStateAction<string>>
   isLoading: boolean
 }
 
@@ -26,6 +33,7 @@ const initialContextValue: GithubContextType = {
   searchGithubUser: noop,
   remainingRequests: 0,
   error: '',
+  setError: noop,
   isLoading: false,
 }
 
@@ -48,62 +56,60 @@ export const GithubProvider = ({
     setError('')
     setIsLoading(true)
     const response = await fetch(`${ROOT_URL}/rate_limit`)
-    const data = await response.json()
-    const { remaining } = data.rate
-    setRemainingRequests(remaining)
-    if (remaining === 0) {
-      setError('Sorry, you have exceeded your hourly limit!')
+
+    if (response.status >= 200 && response.status < 300) {
+      const data = await response.json()
+      const { remaining } = data.rate
+      setRemainingRequests(remaining)
+      if (remaining === 0) {
+        setError('Sorry, you have exceeded your hourly limit!')
+      }
+    } else {
+      setError('There was an error while fetching remaining requests...')
+      setIsLoading(false)
     }
   }
 
   useEffect(() => {
-    try {
-      checkRequests()
-      setIsLoading(false)
-    } catch (error) {
-      throw new Error()
-      setIsLoading(false)
-    }
+    checkRequests()
+    setIsLoading(false)
   }, [])
 
   const searchGithubUser = async (user: string): Promise<void> => {
     setError('')
     setIsLoading(true)
-    try {
-      if (user === '') {
-        setError('Please type a username to search')
+    const userResponse = await fetch(`${ROOT_URL}/users/${user}`)
+
+    if (userResponse.status >= 200 && userResponse.status < 300) {
+      const userData = await userResponse.json()
+      setGithubUser(userData)
+      const { login, followers_url } = userData
+
+      const response = await Promise.allSettled([
+        fetch(`${ROOT_URL}/users/${login}/repos?per_page=100`),
+        fetch(`${followers_url}?per_page=100`),
+      ])
+
+      const [repos, followers] = response
+      const isFulfilled = 'fulfilled'
+
+      if (repos.status === isFulfilled) {
+        const reposData = await repos.value.json()
+        setRepos(reposData)
       } else {
-        const userResponse = await fetch(`${ROOT_URL}/users/${user}`)
-
-        if (userResponse.status >= 200 && userResponse.status < 300) {
-          const userData = await userResponse.json()
-          setGithubUser(userData)
-          const { login, followers_url } = userData
-
-          const response = await Promise.allSettled([
-            fetch(`${ROOT_URL}/users/${login}/repos?per_page=100`),
-            fetch(`${followers_url}?per_page=100`),
-          ])
-
-          const [repos, followers] = response
-          const isFulfilled = 'fulfilled'
-
-          if (repos.status === isFulfilled) {
-            const reposData = await repos.value.json()
-            setRepos(reposData)
-          }
-          if (followers.status === isFulfilled) {
-            const followersData = await followers.value.json()
-            setFollowers(followersData)
-          }
-          setIsLoading(false)
-        } else {
-          setError('There is no user with that username')
-          setIsLoading(false)
-        }
+        setError('There was an error while fetching repos...')
       }
-    } catch (error) {
-      throw new Error()
+
+      if (followers.status === isFulfilled) {
+        const followersData = await followers.value.json()
+        setFollowers(followersData)
+      } else {
+        setError('There was an error while fetching followers...')
+      }
+      setIsLoading(false)
+    } else {
+      setError('There was an error while fetching users...')
+      setIsLoading(false)
     }
   }
 
@@ -116,6 +122,7 @@ export const GithubProvider = ({
         searchGithubUser,
         remainingRequests,
         error,
+        setError,
         isLoading,
       }}
     >

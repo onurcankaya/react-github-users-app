@@ -7,17 +7,22 @@ import { GithubContext } from '../context'
 import { Button } from './'
 
 export const Search = () => {
-  const [user, setUser] = useState('')
-  const { searchGithubUser, remainingRequests, error } =
+  const [query, setQuery] = useState('')
+  const { searchGithubUser, remainingRequests, error, setError } =
     useContext(GithubContext)
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setUser(e.target.value)
+    setQuery(e.target.value)
   }
 
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault()
-    searchGithubUser(user)
+
+    if (!query) {
+      setError('Please type a username to search')
+    } else {
+      searchGithubUser(query)
+    }
   }
 
   return (
@@ -27,7 +32,7 @@ export const Search = () => {
         <Input
           type='text'
           placeholder='Search Github users...'
-          value={user}
+          value={query}
           onChange={handleChangeInput}
         />
         {remainingRequests > 0 && <Button type='submit'>Search</Button>}
