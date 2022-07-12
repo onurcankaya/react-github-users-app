@@ -1,4 +1,4 @@
-export { Button, LinkButton } from './Button'
+export { Button, ExternalLinkButton, LinkButton } from './Button'
 export { Chart } from './Chart'
 export { Info } from './Info'
 export { Layout } from './Layout'

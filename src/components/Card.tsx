@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import { GithubContext } from '../context'
 
-import { LinkButton } from './'
+import { ExternalLinkButton } from './'
 
 export const Card = (): JSX.Element => {
   const { githubUser } = useContext(GithubContext)
@@ -27,9 +27,9 @@ export const Card = (): JSX.Element => {
           <Name>{name}</Name>
           <Twitter>{twitter_username}</Twitter>
         </div>
-        <LinkButton href={html_url} target='_blank' rel='noreferrer'>
+        <ExternalLinkButton href={html_url} target='_blank' rel='noreferrer'>
           Follow
-        </LinkButton>
+        </ExternalLinkButton>
       </Header>
       <Bio>{bio || 'No bio'}</Bio>
       <Details>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 const sharedStyles = css`
@@ -17,6 +18,9 @@ const sharedStyles = css`
 export const Button = styled.button`
   ${sharedStyles}
 `
-export const LinkButton = styled.a`
+export const ExternalLinkButton = styled.a`
+  ${sharedStyles}
+`
+export const LinkButton = styled(Link)`
   ${sharedStyles}
 `

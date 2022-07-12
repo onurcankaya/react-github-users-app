@@ -2,11 +2,11 @@ import styled from 'styled-components'
 
 import { LinkButton } from '../components'
 
-export const Error = ({ message }: { message: string }): JSX.Element => {
+export const NotFound = (): JSX.Element => {
   return (
     <Wrapper>
-      <Header>Error</Header>
-      <Subheader>{message}</Subheader>
+      <Header>404</Header>
+      <Subheader>Page Not Found</Subheader>
       <LinkButton to='/' className='btn'>
         Go back
       </LinkButton>
