@@ -17,6 +17,6 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 const Spinner = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
 `
