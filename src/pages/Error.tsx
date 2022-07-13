@@ -7,9 +7,7 @@ export const Error = ({ message }: { message: string }): JSX.Element => {
     <Wrapper>
       <Header>Error</Header>
       <Subheader>{message}</Subheader>
-      <LinkButton to='/' className='btn'>
-        Go back
-      </LinkButton>
+      <LinkButton to='/'>Go back</LinkButton>
     </Wrapper>
   )
 }

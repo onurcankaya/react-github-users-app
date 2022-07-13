@@ -7,9 +7,7 @@ export const NotFound = (): JSX.Element => {
     <Wrapper>
       <Header>404</Header>
       <Subheader>Page Not Found</Subheader>
-      <LinkButton to='/' className='btn'>
-        Go back
-      </LinkButton>
+      <LinkButton to='/'>Go back</LinkButton>
     </Wrapper>
   )
 }
