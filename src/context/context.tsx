@@ -9,14 +9,10 @@ import {
 
 import { Follower, GithubUser, Repo } from '../types'
 
-import mockFollowers from './mockData/mockFollowers'
-import mockRepos from './mockData/mockRepos'
-import mockUser from './mockData/mockUser'
-
 const ROOT_URL = 'https://api.github.com'
 
 type GithubContextType = {
-  githubUser: GithubUser
+  githubUser: GithubUser | null
   repos: Repo[]
   followers: Follower[]
   searchGithubUser: (user: string) => void
@@ -27,9 +23,9 @@ type GithubContextType = {
 }
 
 const initialContextValue: GithubContextType = {
-  githubUser: mockUser,
-  repos: mockRepos,
-  followers: mockFollowers,
+  githubUser: null,
+  repos: [],
+  followers: [],
   searchGithubUser: noop,
   remainingRequests: 0,
   error: '',
@@ -45,9 +41,9 @@ export const GithubProvider = ({
 }: {
   children: React.ReactNode
 }): JSX.Element => {
-  const [githubUser, setGithubUser] = useState(mockUser)
-  const [repos, setRepos] = useState(mockRepos)
-  const [followers, setFollowers] = useState(mockFollowers)
+  const [githubUser, setGithubUser] = useState(null)
+  const [repos, setRepos] = useState([])
+  const [followers, setFollowers] = useState([])
   const [remainingRequests, setRemainingRequests] = useState(0)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)

@@ -14,8 +14,10 @@ const formatChartData = (data: ChartData) => {
     .slice(0, 5)
 }
 
-export const Repos = (): JSX.Element => {
+export const Repos = (): JSX.Element | null => {
   const { repos } = useContext(GithubContext)
+
+  if (!repos.length) return null
 
   const languages = repos.reduce((total: ChartData, item) => {
     const { language } = item

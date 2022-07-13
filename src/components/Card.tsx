@@ -6,8 +6,11 @@ import { GithubContext } from '../context'
 
 import { ExternalLinkButton } from './'
 
-export const Card = (): JSX.Element => {
+export const Card = (): JSX.Element | null => {
   const { githubUser } = useContext(GithubContext)
+
+  if (!githubUser) return null
+
   const {
     avatar_url,
     name,

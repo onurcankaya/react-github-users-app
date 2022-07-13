@@ -3,8 +3,10 @@ import styled from 'styled-components'
 
 import { GithubContext } from '../context'
 
-export const Followers = (): JSX.Element => {
+export const Followers = (): JSX.Element | null => {
   const { followers } = React.useContext(GithubContext)
+
+  if (!followers.length) return null
 
   return (
     <Wrapper>
