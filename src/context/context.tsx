@@ -1,3 +1,4 @@
+import axios, { AxiosError } from 'axios'
 import noop from 'lodash/noop'
 import {
   createContext,
@@ -51,17 +52,21 @@ export const GithubProvider = ({
   const checkRequests = async (): Promise<void> => {
     setError('')
     setIsLoading(true)
-    const response = await fetch(`${ROOT_URL}/rate_limit`)
 
-    if (response.status >= 200 && response.status < 300) {
-      const data = await response.json()
-      const { remaining } = data.rate
+    try {
+      const response = await axios(`${ROOT_URL}/rate_limit`)
+      const { remaining } = response.data.rate
       setRemainingRequests(remaining)
       if (remaining === 0) {
         setError('Sorry, you have exceeded your hourly limit!')
       }
-    } else {
-      setError('There was an error while fetching remaining requests...')
+    } catch (error) {
+      const typedError = error as Error | AxiosError
+      if (axios.isAxiosError(typedError)) {
+        setError(`Not able to fetch remaining requests. ${typedError.message}.`)
+      } else {
+        setError('There was an error while fetching remaining requests...')
+      }
       setIsLoading(false)
     }
   }
@@ -74,37 +79,41 @@ export const GithubProvider = ({
   const searchGithubUser = async (user: string): Promise<void> => {
     setError('')
     setIsLoading(true)
-    const userResponse = await fetch(`${ROOT_URL}/users/${user}`)
 
-    if (userResponse.status >= 200 && userResponse.status < 300) {
-      const userData = await userResponse.json()
-      setGithubUser(userData)
-      const { login, followers_url } = userData
+    try {
+      const userResponse = await axios(`${ROOT_URL}/users/${user}`)
+      const { data } = userResponse
+      setGithubUser(data)
+      const { login, followers_url } = data
 
       const response = await Promise.allSettled([
-        fetch(`${ROOT_URL}/users/${login}/repos?per_page=100`),
-        fetch(`${followers_url}?per_page=100`),
+        axios(`${ROOT_URL}/users/${login}/repos?per_page=100`),
+        axios(`${followers_url}?per_page=100`),
       ])
 
       const [repos, followers] = response
       const isFulfilled = 'fulfilled'
 
       if (repos.status === isFulfilled) {
-        const reposData = await repos.value.json()
+        const reposData = await repos.value.data
         setRepos(reposData)
       } else {
         setError('There was an error while fetching repos...')
       }
-
       if (followers.status === isFulfilled) {
-        const followersData = await followers.value.json()
+        const followersData = await followers.value.data
         setFollowers(followersData)
       } else {
         setError('There was an error while fetching followers...')
       }
       setIsLoading(false)
-    } else {
-      setError('There was an error while fetching users...')
+    } catch (error) {
+      const typedError = error as Error | AxiosError
+      if (axios.isAxiosError(typedError)) {
+        setError(`Not able to fetch the user. ${typedError.message}.`)
+      } else {
+        setError('There was an error while fetching the user...')
+      }
       setIsLoading(false)
     }
   }
