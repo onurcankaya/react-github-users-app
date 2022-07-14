@@ -5,7 +5,7 @@ const sharedStyles = css`
   border-radius: var(--radius);
   border-color: transparent;
   padding: 0.5rem 1rem;
-  text-transform: capitalize;
+  text-transform: uppercase;
   background: var(--color-grey-5);
   color: var(--color-white);
   transition: var(--transition);
